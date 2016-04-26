@@ -1,0 +1,23 @@
+double answer(Point[] hull) {
+    if (hull.length == 0 || hull.length == 1) return 0.0;
+    if (hull.length == 2) return dist(hull[0], hull[1]);
+
+    double maxDist = Double.MIN_VALUE;
+    int i = 0;
+    int k = (i+2)%hull.length;
+    for (; i < hull.length; i++) {
+        int j = (i+1)%hull.length;
+        maxDist = Math.max(maxDist, dist(hull[i], hull[k]));
+
+        double curArea = area(hull[i], hull[j], hull[k]);
+        //continually rotate k
+        while (area(hull[i], hull[j], hull[(k+1)%hull.length]) >= curArea) {
+            curArea = area(hull[i], hull[j], hull[(k+1)%hull.length]);
+            k = (k+1)%hull.length;
+            maxDist = Math.max(maxDist, dist(hull[i], hull[k]));
+        }
+        //can't rotate caliper on k anymore.
+        //now just move i.
+    }
+    return maxDist;
+}
