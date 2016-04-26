@@ -3,3 +3,7 @@
 
 # OSX
 .DS_Store
+
+# Josh files
+*.in
+*.out
